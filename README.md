@@ -6,7 +6,7 @@ characters appears in a fancy terminal.
 ## Build
 
 ```
-$ gcc -O3 baudcat.c -o baudcat
+$ make
 ```
 
 ## TODO
