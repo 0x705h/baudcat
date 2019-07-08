@@ -15,4 +15,4 @@ libbaudcat.so: baudcat.c
 
 
 clean:
-	rm -f baudcat libbaudcat.so libbaudcat.a baudcat.o
+	rm -f baudcat libbaudcat.so libbaudcat.a baudcat.o baudcat-static
