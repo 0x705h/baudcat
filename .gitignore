@@ -1,1 +1,5 @@
 baudcat
+libbaudcat.so
+baudcat-static
+baudcat.o
+libbaudcat.a
