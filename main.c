@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "baudcat.h"
+
+//#define TEST
 
 int main(int argc, char *argv[]) {
 	char * filename = argv[1];
@@ -9,8 +12,9 @@ int main(int argc, char *argv[]) {
 	int bps = 300; 
 	FILE *fd;	
 
+    char test_str[] = "We are baudcat-ing this buffer :) \n";
 
-	// disable buffering on stdout 
+   	// disable buffering on stdout 
 	setbuf(stdout, NULL);	
 	if (argc < 2) {
 		printf("usage: baudcat filename [bps]\n");
@@ -19,20 +23,19 @@ int main(int argc, char *argv[]) {
 
 	if ( argv[2] != NULL ) {
 		bps = atoi(argv[2]);
+#ifdef TEST
 		printf("baudrate set at %d\n", bps);
+#endif 
 	}
-	fd = fopen(filename, "r");
-	if (fd == NULL) {
-		fprintf(stderr, "Could not open file!\n");
-		exit(1);
-	}
-	
-	while ((c = fgetc(fd)) != EOF) {
-		baudcat_wait(bps);
-		printf("%c", (char) c);
-	}	
 
-	fclose(fd);
+#ifdef TEST
+    printf("\n[+] Printing from buffer (buffer size: %lu): \n", sizeof(test_str));
+    baudcat_string(test_str, bps);
+
+    printf("\n[+] Printing from filename: \n");
+#endif
+    baudcat_file(filename, bps);
 
 	return 0;
 }
+
